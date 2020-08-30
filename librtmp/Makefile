@@ -1,10 +1,10 @@
 VERSION=v2.4
 
-prefix=/usr/local
+prefix=/usr
 
 incdir=$(prefix)/include/librtmp
 bindir=$(prefix)/bin
-libdir=$(prefix)/lib
+libdir=$(prefix)/lib64
 mandir=$(prefix)/man
 BINDIR=$(DESTDIR)$(bindir)
 INCDIR=$(DESTDIR)$(incdir)
@@ -13,7 +13,9 @@ MANDIR=$(DESTDIR)$(mandir)
 
 CC=$(CROSS_COMPILE)gcc
 LD=$(CROSS_COMPILE)ld
-AR=$(CROSS_COMPILE)ar
+AR=gcc-ar
+RANLIB=gcc-ranlib
+NM=gcc-nm
 
 SYS=posix
 CRYPTO=OPENSSL
@@ -25,12 +27,12 @@ DEF_=-DNO_CRYPTO
 REQ_GNUTLS=gnutls,hogweed,nettle
 REQ_OPENSSL=libssl,libcrypto
 PUB_GNUTLS=-lgmp
-LIBZ=-lz
+LIBZ=/usr/lib64/libz.a
 LIBS_posix=
 LIBS_darwin=
 LIBS_mingw=-lws2_32 -lwinmm -lgdi32
 LIB_GNUTLS=-lgnutls -lhogweed -lnettle -lgmp $(LIBZ)
-LIB_OPENSSL=-lssl -lcrypto $(LIBZ)
+LIB_OPENSSL=/usr/lib64/libssl.a /usr/lib64/libcrypto.a $(LIBZ)
 LIB_POLARSSL=-lpolarssl $(LIBZ)
 PRIVATE_LIBS=$(LIBS_$(SYS))
 CRYPTO_LIB=$(LIB_$(CRYPTO)) $(PRIVATE_LIBS)
@@ -73,7 +75,7 @@ SO_LIB=$(SOLIB_$(SHARED))
 SO_INST=$(SOINST_$(SHARED))
 
 DEF=-DRTMPDUMP_VERSION=\"$(VERSION)\" $(CRYPTO_DEF) $(XDEF)
-OPT=-O2
+OPT=-O3
 CFLAGS=-Wall $(XCFLAGS) $(INC) $(DEF) $(OPT) $(SO_DEF)
 LDFLAGS=$(XLDFLAGS)
 

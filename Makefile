@@ -1,9 +1,12 @@
 VERSION=v2.4
 
-prefix=/usr/local
+prefix=/usr
 
 CC=$(CROSS_COMPILE)gcc
 LD=$(CROSS_COMPILE)ld
+AR=gcc-ar
+RANLIB=gcc-ranlib
+NM=gcc-nm
 
 SYS=posix
 #SYS=mingw
@@ -11,18 +14,18 @@ SYS=posix
 CRYPTO=OPENSSL
 #CRYPTO=POLARSSL
 #CRYPTO=GNUTLS
-LIBZ=-lz
+LIBZ=/usr/lib64/libz.a
 LIB_GNUTLS=-lgnutls -lhogweed -lnettle -lgmp $(LIBZ)
-LIB_OPENSSL=-lssl -lcrypto $(LIBZ)
+LIB_OPENSSL=/usr/lib64/libssl.a /usr/lib64/libcrypto.a $(LIBZ)
 LIB_POLARSSL=-lpolarssl $(LIBZ)
 CRYPTO_LIB=$(LIB_$(CRYPTO))
 DEF_=-DNO_CRYPTO
 CRYPTO_DEF=$(DEF_$(CRYPTO))
 
 DEF=-DRTMPDUMP_VERSION=\"$(VERSION)\" $(CRYPTO_DEF) $(XDEF)
-OPT=-O2
-CFLAGS=-Wall $(XCFLAGS) $(INC) $(DEF) $(OPT)
-LDFLAGS=-Wall $(XLDFLAGS)
+OPT=-O3
+CFLAGS=-Wall $(XCFLAGS) $(INC) $(DEF) $(OPT) -I/usr/include
+LDFLAGS=-Wall $(XLDFLAGS) -I/usr/include
 
 bindir=$(prefix)/bin
 sbindir=$(prefix)/sbin
