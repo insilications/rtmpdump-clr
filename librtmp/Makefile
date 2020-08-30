@@ -1,6 +1,6 @@
 VERSION=v2.4
 
-prefix=/usr/local
+prefix=/usr
 
 incdir=$(prefix)/include/librtmp
 bindir=$(prefix)/bin
@@ -13,7 +13,9 @@ MANDIR=$(DESTDIR)$(mandir)
 
 CC=$(CROSS_COMPILE)gcc
 LD=$(CROSS_COMPILE)ld
-AR=$(CROSS_COMPILE)ar
+AR=gcc-ar
+RANLIB=gcc-ranlib
+NM=gcc-nm
 
 SYS=posix
 CRYPTO=OPENSSL
@@ -73,7 +75,7 @@ SO_LIB=$(SOLIB_$(SHARED))
 SO_INST=$(SOINST_$(SHARED))
 
 DEF=-DRTMPDUMP_VERSION=\"$(VERSION)\" $(CRYPTO_DEF) $(XDEF)
-OPT=-O2
+OPT=-O3
 CFLAGS=-Wall $(XCFLAGS) $(INC) $(DEF) $(OPT) $(SO_DEF)
 LDFLAGS=$(XLDFLAGS)
 

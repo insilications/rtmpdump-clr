@@ -1,9 +1,12 @@
 VERSION=v2.4
 
-prefix=/usr/local
+prefix=/usr
 
 CC=$(CROSS_COMPILE)gcc
 LD=$(CROSS_COMPILE)ld
+AR=gcc-ar
+RANLIB=gcc-ranlib
+NM=gcc-nm
 
 SYS=posix
 #SYS=mingw
@@ -20,7 +23,7 @@ DEF_=-DNO_CRYPTO
 CRYPTO_DEF=$(DEF_$(CRYPTO))
 
 DEF=-DRTMPDUMP_VERSION=\"$(VERSION)\" $(CRYPTO_DEF) $(XDEF)
-OPT=-O2
+OPT=-O3
 CFLAGS=-Wall $(XCFLAGS) $(INC) $(DEF) $(OPT)
 LDFLAGS=-Wall $(XLDFLAGS)
 
