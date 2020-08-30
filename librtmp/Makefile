@@ -4,7 +4,7 @@ prefix=/usr
 
 incdir=$(prefix)/include/librtmp
 bindir=$(prefix)/bin
-libdir=$(prefix)/lib
+libdir=$(prefix)/lib64
 mandir=$(prefix)/man
 BINDIR=$(DESTDIR)$(bindir)
 INCDIR=$(DESTDIR)$(incdir)

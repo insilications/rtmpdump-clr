@@ -24,8 +24,8 @@ CRYPTO_DEF=$(DEF_$(CRYPTO))
 
 DEF=-DRTMPDUMP_VERSION=\"$(VERSION)\" $(CRYPTO_DEF) $(XDEF)
 OPT=-O3
-CFLAGS=-Wall $(XCFLAGS) $(INC) $(DEF) $(OPT)
-LDFLAGS=-Wall $(XLDFLAGS)
+CFLAGS=-Wall $(XCFLAGS) $(INC) $(DEF) $(OPT) -I/usr/include
+LDFLAGS=-Wall $(XLDFLAGS) -I/usr/include
 
 bindir=$(prefix)/bin
 sbindir=$(prefix)/sbin
